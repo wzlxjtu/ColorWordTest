@@ -1,4 +1,5 @@
 
+var timing;
 var colors = ["Blue", "Orange", "Yellow","Purple","Red","Green"];
 
 var i_color = [0,1,2,3,4,5]; // color index
@@ -8,11 +9,13 @@ choose1 = document.getElementById("choose1");
 start = document.getElementById("start");
 target = document.getElementById("target");
 cat = document.getElementById("cat");
+cat2 = document.getElementById("cat2");
 button0 = document.getElementById("button0");
 button1 = document.getElementById("button1");
 button2 = document.getElementById("button2");
 button3 = document.getElementById("button3");
 cat.style.visibility="hidden";
+cat2.style.visibility="hidden";
 choose1.style.visibility="hidden";
 button0.style.visibility="hidden";
 button1.style.visibility="hidden";
@@ -20,7 +23,8 @@ button2.style.visibility="hidden";
 button3.style.visibility="hidden";
 
 function setup() {
-	// window.setTimeout(failed, 4000);
+	clearTimeout(timing);
+	timing = window.setTimeout(failed, 5000);
 	start.style.visibility = "hidden";
 	choose1.style.visibility = "visible";
 	button0.style.visibility="visible";
@@ -54,10 +58,11 @@ function setup() {
 	button3.style.color = colors[Math.floor(Math.random() * colors.length)];
 }
 function failed() {
-	cat.style.visibility="visible";
+	cat2.style.visibility="visible";
 	setup();
 }
 function b0_click() {
+	cat2.style.visibility="hidden";
 	if (button0.innerHTML === right_anwer)
 		cat.style.visibility="hidden";
 	else{
@@ -66,6 +71,7 @@ function b0_click() {
 	setup();
 }
 function b1_click() {
+	cat2.style.visibility="hidden";
 	if (button1.innerHTML === right_anwer)
 		cat.style.visibility="hidden";
 	else
@@ -73,6 +79,7 @@ function b1_click() {
 	setup();
 }
 function b2_click() {
+	cat2.style.visibility="hidden";
 	if (button2.innerHTML === right_anwer)
 		cat.style.visibility="hidden";
 	else
@@ -80,6 +87,7 @@ function b2_click() {
 	setup();
 }
 function b3_click() {
+	cat2.style.visibility="hidden";
 	if (button3.innerHTML === right_anwer)
 		cat.style.visibility="hidden";
 	else
