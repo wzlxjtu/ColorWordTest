@@ -70,9 +70,9 @@ html {
 }
 #counter {
 	position:absolute;
-    color: #5F9EA0;
-    bottom: 15%;
-    left: 49%;
+  color: #5F9EA0;
+  bottom: 10%;
+  left: 49%;
 	font-size: 90px;
     /* transform: translate(-50%, -50%); */
 }
@@ -107,7 +107,7 @@ html {
 }
 #progress-bar {
     width: calc(100% - 6px);
-    height: 5px;
+    height: 20px;
     background: #e0e0e0;
     padding: 3px;
     border-radius: 3px;
@@ -115,7 +115,7 @@ html {
 }
 #progress-bar-fill {
     display: block;
-    height: 10px;
+    height: 20px;
     background: #659cef;
     border-radius: 3px;
 }

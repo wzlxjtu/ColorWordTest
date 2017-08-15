@@ -71,8 +71,8 @@ function setup() {
 	}
 }
 function durationUpdate() {
-    var perc = Math.round((currTime/(duration*1000))*100);
-      if (perc <= 100) {
+    var perc = 100 - Math.round((currTime/(duration*1000))*100);
+      if (perc >= 0) {
 		  currTime += 10;
 		  currResponse += 10;
 		  counter.innerHTML = Math.round(responseTime  - currResponse / 1000);
