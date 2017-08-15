@@ -4,15 +4,26 @@
     <meta charset="utf-8">
     <title>Color Word Test</title>
     <link href="styles/style.css" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
+	<div id="progress-bar">
+		<span id="progress-bar-fill" style="width: 0%"></span>
+	</div>
+	<audio id="sound" src="audios/alert.wav" preload="auto"></audio>
     <img id="cat" src="images/cat.jpg" alt="cat">
     <img id="cat2" src="images/cat2.jpg" alt="cat2">
     <h1 id="target"></h1>
     <h2 id="choose1">Choose <span id="choose2">Important</span></h2>
-    <button class="start" id="start" onclick="setup()">Start</button>
+	<h2 id="score1">Score: <span id="score2">0</span></h2>
+	<h2 id="counter"></h2>
+	<label class="switch">
+	  <input id="checkBox" type="checkbox">
+	  <span class="slider round"></span>
+	</label>
+    <button class="start" id="start" onclick="startGame()">Start</button>
     <button class="button" id="button0" onclick="b0_click()"></button>
-	  <button class="button" id="button1" onclick="b1_click()"></button>
+	<button class="button" id="button1" onclick="b1_click()"></button>
     <button class="button" id="button2" onclick="b2_click()"></button>
     <button class="button" id="button3" onclick="b3_click()"></button>
     <script src="scripts/main.js"></script>
