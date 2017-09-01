@@ -2,7 +2,8 @@
 // game duration
 var duration = 15; // in seconds
 // time for per answer
-var responseTime = 5; // in seconds
+var RT = 5, adaptiveRT = 5; // response time in seconds
+var lambda = 0.7; // the rate to update the adaptive response time
 var currTime, currResponse;
 var score;
 var timing;
@@ -22,7 +23,12 @@ function startGame() {
 }
 function setup() {
 	clearTimeout(timing);
-	timing = window.setTimeout(failed, responseTime * 1000);
+	adaptiveRT = adaptiveRT < 2 ? 2 : adaptiveRT;
+	adaptiveRT = adaptiveRT > 5 ? 5 : adaptiveRT;
+	if (checkBox2.checked == true)
+		timing = window.setTimeout(failed, adaptiveRT * 1000);
+	else
+		timing = window.setTimeout(failed, RT * 1000);
 	document.getElementById("score2").innerHTML = score;
 	start.style.visibility = "hidden";
 	showGUI();
@@ -48,14 +54,14 @@ function setup() {
 	button2.innerHTML = colors[i_color[i_button[2]]];
 	button3.innerHTML = colors[i_color[i_button[3]]];
 	// When the checkbox is on, the game runs in congruent mode
-	if (checkBox.checked == true) {
+	if (checkBox1.checked == true) {
 		// random mode
 		// button0.style.color = colors[Math.floor(Math.random() * colors.length)];
 		// button1.style.color = colors[Math.floor(Math.random() * colors.length)];
 		// button2.style.color = colors[Math.floor(Math.random() * colors.length)];
 		// button3.style.color = colors[Math.floor(Math.random() * colors.length)];
 		// congruent mode
-		// document.getElementById("choose2").innerHTML = "WORD";
+		document.getElementById("choose2").innerHTML = "WORD";
 		target.innerHTML = right_anwer;
 		target.style.color = right_anwer;
 		button0.style.color = colors[i_color[i_button[0]]];
@@ -73,20 +79,33 @@ function setup() {
 function durationUpdate() {
     var perc = 100 - Math.round((currTime/(duration*1000))*100);
       if (perc >= 0) {
-		  currTime += 10;
-		  currResponse += 10;
-		  counter.innerHTML = Math.round(responseTime  - currResponse / 1000);
+		  currTime += 20;
+		  currResponse += 20;
+		  if (checkBox2.checked == true)
+			  counter.innerHTML = parseFloat(adaptiveRT - currResponse / 1000).toFixed(1);
+		  else
+			  counter.innerHTML = parseFloat(RT  - currResponse / 1000).toFixed(1);		  
 		  document.getElementById("progress-bar-fill").style.width = perc + "%";
-		  setTimeout(durationUpdate, 10);
+		  setTimeout(durationUpdate, 20);
       }
 	  else {
+		  // When GAME OVER
 		  setTimeout(clearTimeout(timing), 100);
 		  hideGUI();
 		  score1.style.visibility = "visible";
 		  start.style.visibility = "visible";
 		  start.innerHTML = "Restart";
 		  start.style.textAlign="center";
+		  adaptiveRT = 5;
 	  }
+}
+function failed() {
+	currResponse = 0;
+	adaptiveRT = lambda*adaptiveRT + (1-lambda)*5;
+	score--;
+	sound.play();
+	cat2.style.visibility="visible";
+	setup();
 }
 // get element id on GUI
 function getGUI() {
@@ -125,72 +144,33 @@ function showGUI() {
 	button2.style.visibility="visible";
 	button3.style.visibility="visible";
 }
-function failed() {
+function updateOnClick(answer) {
+	cat2.style.visibility="hidden";
+	if (answer == true) {
+		score++;
+		cat.style.visibility="hidden";
+		currTime = Math.max(currTime - 4000, 0);
+		adaptiveRT = lambda*adaptiveRT + (1-lambda)*currResponse/1000;
+	}
+	else {
+		score--;
+		sound.play();
+		cat.style.visibility="visible";
+	}
 	currResponse = 0;
-	score--;
-	sound.play();
-	cat2.style.visibility="visible";
 	setup();
 }
 function b0_click() {
-	cat2.style.visibility="hidden";
-	currResponse = 0;
-	if (button0.innerHTML === right_anwer) {
-		score++;
-		cat.style.visibility="hidden";
-		currTime = Math.max(currTime - 4000, 0);
-	}
-	else {
-		score--;
-		sound.play();
-		cat.style.visibility="visible";
-	}
-	setup();
+	updateOnClick(button0.innerHTML === right_anwer);
 }
 function b1_click() {
-	currResponse = 0;
-	cat2.style.visibility="hidden";
-	if (button1.innerHTML === right_anwer) {
-		score++;
-		cat.style.visibility="hidden";
-		currTime = Math.max(currTime - 4000, 0);
-	}
-	else {
-		score--;
-		sound.play();
-		cat.style.visibility="visible";
-	}
-	setup();
+	updateOnClick(button1.innerHTML === right_anwer);
 }
 function b2_click() {
-	currResponse = 0;
-	cat2.style.visibility="hidden";
-	if (button2.innerHTML === right_anwer) {
-		score++;
-		cat.style.visibility="hidden";
-		currTime = Math.max(currTime - 4000, 0);
-	}
-	else {
-		score--;
-		sound.play();
-		cat.style.visibility="visible";
-	}
-	setup();
+	updateOnClick(button2.innerHTML === right_anwer);
 }
 function b3_click() {
-	currResponse = 0;
-	cat2.style.visibility="hidden";
-	if (button3.innerHTML === right_anwer) {
-		score++;
-		cat.style.visibility="hidden";
-		currTime = Math.max(currTime - 4000, 0);
-	}
-	else {
-		score--;
-		sound.play();
-		cat.style.visibility="visible";
-	}
-	setup();
+	updateOnClick(button3.innerHTML === right_anwer);
 }
 // shuffle the numbers
 function shuffle(o) {
