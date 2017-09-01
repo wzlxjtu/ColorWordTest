@@ -48,6 +48,51 @@ html {
     bottom: 5%;
     right: 5%;
 }
+#start {
+    font-size: 50px;
+    border: 5px solid white;
+    height: 120px;
+    width: 270px;
+    font-weight: bold;
+    position:absolute;
+    bottom: 15%;
+    left: 50%;
+	margin-left:-140px;
+}
+#settings_img {
+	position: absolute;
+    bottom: 2%;
+    left: 50%;
+	width: 3%;
+    text-align: center;
+	margin-left:-30px
+}
+#popup {
+width:100%;
+height:100%;
+opacity:0.98;
+top:0;
+left:0;
+display:none;
+position:fixed;
+background-color:#313131;
+overflow:auto
+}
+#popupWindow {
+position:absolute;
+left:50%;
+top:17%;
+margin-left:-160px;
+}
+#setting {
+max-width:300px;
+min-width:250px;
+padding:10px 50px;
+border:2px solid gray;
+border-radius:10px;
+font-family:raleway;
+background-color:#fff
+}
 #target {
 	position:absolute;
     top: 40%;
@@ -84,28 +129,9 @@ html {
 	position:absolute;
   color: #5F9EA0;
   bottom: 10%;
-  left: 43%;
+  left: 46%;
 	font-size: 90px;
     /* transform: translate(-50%, -50%); */
-}
-#start {
-    color: white;
-    background-color: #C0C0C0;
-    text-align: center;
-    font-size: 50px;
-    border-radius: 8px;
-    border: 5px solid white;
-    height: 120px;
-    width: 270px;
-    font-weight: bold;
-    position:absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-#start:hover {
-    background-color: #DCDCDC;
-	cursor: pointer;
 }
 #cat {
 	position:absolute;
@@ -132,22 +158,50 @@ html {
     border-radius: 3px;
 }
 #switch1 {
-  position: absolute;
-  bottom: 2%;
-  left: 47%;
-  transform: translate(-50%, -50%);
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+  bottom: 60%;
+  left: 80%;
 }
 #switch2 {
+  bottom: 45%;
+  left: 80%;
+}
+#switch3 {
+  bottom: 30%;
+  left: 80%;
+}
+#cong_text {
   position: absolute;
-  bottom: 2%;
-  left: 53%;
-  transform: translate(-50%, -50%);
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+  bottom: 60%;
+  left: 15%;
+}
+#adap_text {
+  position: absolute;
+  bottom: 45%;
+  left: 15%;
+}
+#hide_text {
+  position: absolute;
+  bottom: 30%;
+  left: 15%;
+}
+#setButton {
+	position: absolute;
+    bottom: 5%;
+    left: 25%;
+    color: white;
+    background-color: #C0C0C0;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 8px;
+    height: 70px;
+    width: 160px;
+    font-weight: bold;
+}
+.switch {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	width: 60px;
+	height: 34px;
 }
 .switch input {display:none;}
 .slider {

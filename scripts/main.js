@@ -81,10 +81,15 @@ function durationUpdate() {
       if (perc >= 0) {
 		  currTime += 20;
 		  currResponse += 20;
-		  if (checkBox2.checked == true)
-			  counter.innerHTML = parseFloat(adaptiveRT - currResponse / 1000).toFixed(1);
+		  if (checkBox3.checked == false) {
+			  counter.style.visibility="visible";
+			  if (checkBox2.checked == true)
+				  counter.innerHTML = parseFloat(adaptiveRT - currResponse / 1000).toFixed(1);
+			  else
+				  counter.innerHTML = parseFloat(RT  - currResponse / 1000).toFixed(1);
+		  }
 		  else
-			  counter.innerHTML = parseFloat(RT  - currResponse / 1000).toFixed(1);		  
+			  counter.style.visibility="hidden";
 		  document.getElementById("progress-bar-fill").style.width = perc + "%";
 		  setTimeout(durationUpdate, 20);
       }
@@ -171,6 +176,20 @@ function b2_click() {
 }
 function b3_click() {
 	updateOnClick(button3.innerHTML === right_anwer);
+}
+//Function To Display Popup
+function popup_show() {
+	document.getElementById('popup').style.display = "block";
+	var buttons = document.getElementsByClassName("button");
+    for (i = 0; i < buttons.length; i += 1)
+		buttons[i].style.position = "static";
+}
+//Function to Hide Popup
+function popup_hide(){
+	document.getElementById('popup').style.display = "none";
+	var buttons = document.getElementsByClassName("button");
+    for (i = 0; i < buttons.length; i += 1)
+		buttons[i].style.position = "absolute";
 }
 // shuffle the numbers
 function shuffle(o) {
