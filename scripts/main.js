@@ -1,8 +1,9 @@
 
 // game duration
-var duration = 15; // in seconds
+var duration = 20; // in seconds
 // time for per answer
 var RT = 5, adaptiveRT = 5; // response time in seconds
+var earning = 0.1;
 var lambda = 0.7; // the rate to update the adaptive response time
 var currTime, currResponse;
 var score;
@@ -29,7 +30,8 @@ function setup() {
 		timing = window.setTimeout(failed, adaptiveRT * 1000);
 	else
 		timing = window.setTimeout(failed, RT * 1000);
-	document.getElementById("score2").innerHTML = score;
+	if (score < 0) score = 0;
+	document.getElementById("score2").innerHTML = score.toFixed(1);
 	start.style.visibility = "hidden";
 	showGUI();
 	// Shuffle the random numbers
@@ -64,6 +66,8 @@ function setup() {
 		document.getElementById("choose2").innerHTML = "WORD";
 		target.innerHTML = right_anwer;
 		target.style.color = right_anwer;
+		score1.style.visibility="hidden";
+		
 		button0.style.color = colors[i_color[i_button[0]]];
 		button1.style.color = colors[i_color[i_button[1]]];
 		button2.style.color = colors[i_color[i_button[2]]];
@@ -79,7 +83,8 @@ function setup() {
 function durationUpdate() {
     var perc = 100 - Math.round((currTime/(duration*1000))*100);
       if (perc >= 0) {
-		  currTime += 20;
+		  if (checkBox1.checked == false)
+			currTime += 20;
 		  currResponse += 20;
 		  if (checkBox3.checked == false) {
 			  counter.style.visibility="visible";
@@ -97,7 +102,8 @@ function durationUpdate() {
 		  // When GAME OVER
 		  setTimeout(clearTimeout(timing), 100);
 		  hideGUI();
-		  score1.style.visibility = "visible";
+		  if (checkBox1.checked == false)
+			score1.style.visibility = "visible";
 		  start.style.visibility = "visible";
 		  start.innerHTML = "Restart";
 		  start.style.textAlign="center";
@@ -105,12 +111,14 @@ function durationUpdate() {
 	  }
 }
 function failed() {
-	currResponse = 0;
-	adaptiveRT = lambda*adaptiveRT + (1-lambda)*5;
-	score--;
-	sound.play();
-	cat2.style.visibility="visible";
-	setup();
+	if (checkBox1.checked == false) {
+		currResponse = 0;
+		adaptiveRT = lambda*adaptiveRT + (1-lambda)*5;
+		score-=0.1;
+		sound.play();
+		cat2.style.visibility="visible";
+		setup();
+	}
 }
 // get element id on GUI
 function getGUI() {
@@ -152,15 +160,17 @@ function showGUI() {
 function updateOnClick(answer) {
 	cat2.style.visibility="hidden";
 	if (answer == true) {
-		score++;
+		score+=earning;
 		cat.style.visibility="hidden";
 		currTime = Math.max(currTime - 4000, 0);
 		adaptiveRT = lambda*adaptiveRT + (1-lambda)*currResponse/1000;
 	}
 	else {
-		score--;
-		sound.play();
-		cat.style.visibility="visible";
+		score-=earning;
+		if (checkBox1.checked == false) {
+			sound.play();
+			cat.style.visibility="visible";
+		}
 	}
 	currResponse = 0;
 	setup();

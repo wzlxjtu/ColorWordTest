@@ -120,10 +120,11 @@ background-color:#fff
     transform: translate(-50%, -50%);
     font-size: 60px;
     color:#5F9EA0;
+	font-style: oblique;
 }
 #score2 {
     font-size: 70px;
-    font-style: oblique;
+	font-style: normal;
 }
 #counter {
 	position:absolute;
